@@ -135,32 +135,41 @@
             document.getElementById("splashScreen").style.display = "none";
         }, 5000);
     }
-
-    let keySequence = '';
-
-    // Add event listener for keydown
-    document.addEventListener('keydown', function(event) {
-        keySequence += event.key;
-
-        if (keySequence === '1553') {
-            // Replace the image with the webview
-            document.getElementById("webviewContainer").style.display = "block";
-            document.getElementById("splashScreen").style.display = "none";
-        }
-    });
-
-    // Clear the key sequence after a short delay
-    setTimeout(function() {
-        keySequence = '';
-    }, 1000);
 </script>
+    
 <script>
-    // Check if the device is not a mobile phone
-    if (!(/Mobi/.test(navigator.userAgent))) {
-        // Replace the current page content with the image
-        document.body.innerHTML = '<img src="https://cdn.pixabay.com/photo/2020/05/10/06/26/coming-soon-5152487_1280.png" alt="Coming Soon">';
+    // Function to check if the device is a mobile phone
+    function isMobileDevice() {
+        return /Mobi/.test(navigator.userAgent);
     }
+
+    // Function to prompt for passkey
+    function promptForPasskey() {
+        // Prompt the user for the passkey
+        let enteredPasskey = prompt('Enter the passkey:');
+        
+        // Check if the entered passkey is correct
+        if (enteredPasskey === '1553') {
+            // Correct passkey, show the webview container
+            document.getElementById("webviewContainer").style.display = "block";
+        } else {
+            // Incorrect passkey, show an alert and do not proceed
+            alert('Incorrect passkey. Access denied.');
+        }
+    }
+
+    // Check if the device is not a mobile phone
+    if (!isMobileDevice()) {
+        // Prompt for passkey
+        promptForPasskey();
+    } else {
+        // Mobile device, directly show the webview container
+        document.getElementById("webviewContainer").style.display = "block";
+    }
+
+    // ... (existing script content) ...
 </script>
+
 
 </body>
 </html>
